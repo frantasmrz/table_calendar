@@ -15,6 +15,9 @@ dependencies:
   intl: ^0.17.0
   simple_gesture_detector: ^0.2.0
 
+  #Dotted border
+  dotted_border: ^2.0.0+2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,6 +1,8 @@
 // Copyright 2019 Aleksander Woźniak
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
@@ -108,15 +110,22 @@ class CellContent extends StatelessWidget {
             child: Text(text, style: calendarStyle.rangeEndTextStyle),
           );
     } else if (isToday && isTodayHighlighted) {
-      cell = calendarBuilders.todayBuilder?.call(context, day, focusedDay) ??
-          AnimatedContainer(
-            duration: duration,
-            margin: margin,
-            padding: padding,
-            decoration: calendarStyle.todayDecoration,
-            alignment: alignment,
-            child: Text(text, style: calendarStyle.todayTextStyle),
-          );
+      cell = Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: DottedBorder(
+          color: const Color(0xFF3057FA),
+          borderType: BorderType.Circle,
+          radius: Radius.circular(200),
+          padding: margin,
+          child: calendarBuilders.todayBuilder?.call(context, day, focusedDay) ??
+              AnimatedContainer(
+                duration: duration,
+                decoration: calendarStyle.todayDecoration,
+                alignment: alignment,
+                child: Text(text, style: calendarStyle.todayTextStyle),
+              ),
+        ),
+      );
     } else if (isHoliday) {
       cell = calendarBuilders.holidayBuilder?.call(context, day, focusedDay) ??
           AnimatedContainer(
