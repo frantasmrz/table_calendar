@@ -73,7 +73,7 @@ class CellContent extends StatelessWidget {
         children: [
           calendarBuilders.disabledBuilder?.call(context, day, focusedDay) ??
               Padding(
-                padding: const EdgeInsets.only(top: 5.0, bottom: 5.0, left: 16.0, right: 16.0),
+                padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(2),
@@ -108,7 +108,7 @@ class CellContent extends StatelessWidget {
             children: [
               calendarBuilders.rangeStartBuilder?.call(context, day, focusedDay) ??
                   Padding(
-                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0, left: 16.0, right: 16.0),
+                    padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(2),
@@ -132,7 +132,7 @@ class CellContent extends StatelessWidget {
         children: [
           calendarBuilders.rangeEndBuilder?.call(context, day, focusedDay) ??
               Padding(
-                padding: const EdgeInsets.only(top: 5.0, bottom: 5.0, left: 16.0, right: 16.0),
+                padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(2),
@@ -173,7 +173,7 @@ class CellContent extends StatelessWidget {
         children: [
           calendarBuilders.holidayBuilder?.call(context, day, focusedDay) ??
               Padding(
-                padding: const EdgeInsets.only(top: 5.0, bottom: 5.0, left: 16.0, right: 16.0),
+                padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(2),
@@ -198,7 +198,7 @@ class CellContent extends StatelessWidget {
             children: [
               calendarBuilders.withinRangeBuilder?.call(context, day, focusedDay) ??
                   Padding(
-                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0, left: 16.0, right: 16.0),
+                    padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(2),
@@ -222,7 +222,7 @@ class CellContent extends StatelessWidget {
         children: [
           calendarBuilders.outsideBuilder?.call(context, day, focusedDay) ??
               Padding(
-                padding: const EdgeInsets.only(top: 5.0, bottom: 5.0, left: 16.0, right: 16.0),
+                padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(2),
