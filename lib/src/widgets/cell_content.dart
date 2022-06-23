@@ -246,7 +246,7 @@ class CellContent extends StatelessWidget {
         children: [
           calendarBuilders.defaultBuilder?.call(context, day, focusedDay) ??
               Padding(
-                padding: const EdgeInsets.only(top: 5.0, bottom: 5.0, left: 16.0, right: 16.0),
+                padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(2),
