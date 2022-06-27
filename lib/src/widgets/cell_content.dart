@@ -6,12 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
+import '../../table_calendar.dart';
 import '../customization/calendar_builders.dart';
 import '../customization/calendar_style.dart';
 
 class CellContent extends StatelessWidget {
   final DateTime day;
   final DateTime focusedDay;
+  final CalendarFormat format;
   final dynamic locale;
   final bool isTodayHighlighted;
   final bool isToday;
@@ -30,6 +32,7 @@ class CellContent extends StatelessWidget {
     Key? key,
     required this.day,
     required this.focusedDay,
+    required this.format,
     required this.calendarStyle,
     required this.calendarBuilders,
     required this.isTodayHighlighted,
@@ -51,8 +54,7 @@ class CellContent extends StatelessWidget {
     final dayLabel = DateFormat.yMMMMd(locale).format(day);
     final semanticsLabel = '$dowLabel, $dayLabel';
 
-    Widget? cell =
-        calendarBuilders.prioritizedBuilder?.call(context, day, focusedDay);
+    Widget? cell = calendarBuilders.prioritizedBuilder?.call(context, day, focusedDay);
 
     if (cell != null) {
       return Semantics(
@@ -72,24 +74,28 @@ class CellContent extends StatelessWidget {
       cell = Column(
         children: [
           calendarBuilders.disabledBuilder?.call(context, day, focusedDay) ??
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2),
-                    color: isWeekend ? const Color(0xFF7AC74F) : const Color(0xFF706BEE),
-                  ),
-                  height: 2,
-                ),
+              Container(
+                child: format == CalendarFormat.week
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2),
+                            color: isWeekend ? const Color(0xFF7AC74F) : const Color(0xFF706BEE),
+                          ),
+                          height: 2,
+                        ),
+                      )
+                    : Container(),
               ),
-              AnimatedContainer(
-                duration: duration,
-                margin: margin,
-                padding: padding,
-                decoration: calendarStyle.disabledDecoration,
-                alignment: alignment,
-                child: Text(text, style: calendarStyle.disabledTextStyle),
-              ),
+          AnimatedContainer(
+            duration: duration,
+            margin: margin,
+            padding: padding,
+            decoration: calendarStyle.disabledDecoration,
+            alignment: alignment,
+            child: Text(text, style: calendarStyle.disabledTextStyle),
+          ),
         ],
       );
     } else if (isSelected) {
@@ -103,52 +109,59 @@ class CellContent extends StatelessWidget {
             child: Text(text, style: calendarStyle.selectedTextStyle),
           );
     } else if (isRangeStart) {
-      cell =
-          Column(
-            children: [
-              calendarBuilders.rangeStartBuilder?.call(context, day, focusedDay) ??
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(2),
-                        color: isWeekend ? const Color(0xFF7AC74F) : const Color(0xFF706BEE),
-                      ),
-                      height: 2,
-                    ),
-                  ),
-                  AnimatedContainer(
-                    duration: duration,
-                    margin: margin,
-                    padding: padding,
-                    decoration: calendarStyle.rangeStartDecoration,
-                    alignment: alignment,
-                    child: Text(text, style: calendarStyle.rangeStartTextStyle),
-                  ),
-            ],
-          );
+      cell = Column(
+        children: [
+          calendarBuilders.rangeStartBuilder?.call(context, day, focusedDay) ??
+              Container(
+                child: format == CalendarFormat.week
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2),
+                            color: isWeekend ? const Color(0xFF7AC74F) : const Color(0xFF706BEE),
+                          ),
+                          height: 2,
+                        ),
+                      )
+                    : Container(),
+              ),
+          AnimatedContainer(
+            duration: duration,
+            margin: margin,
+            padding: padding,
+            decoration: calendarStyle.rangeStartDecoration,
+            alignment: alignment,
+            child: Text(text, style: calendarStyle.rangeStartTextStyle),
+          ),
+        ],
+      );
     } else if (isRangeEnd) {
       cell = Column(
         children: [
           calendarBuilders.rangeEndBuilder?.call(context, day, focusedDay) ??
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2),
-                    color: isWeekend ? const Color(0xFF7AC74F) : const Color(0xFF706BEE),
-                  ),
-                  height: 2,
-                ),
+              Container(
+                child: format == CalendarFormat.week
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2),
+                            color: isWeekend ? const Color(0xFF7AC74F) : const Color(0xFF706BEE),
+                          ),
+                          height: 2,
+                        ),
+                      )
+                    : Container(),
               ),
-              AnimatedContainer(
-                duration: duration,
-                margin: margin,
-                padding: padding,
-                decoration: calendarStyle.rangeEndDecoration,
-                alignment: alignment,
-                child: Text(text, style: calendarStyle.rangeEndTextStyle),
-              ),
+          AnimatedContainer(
+            duration: duration,
+            margin: margin,
+            padding: padding,
+            decoration: calendarStyle.rangeEndDecoration,
+            alignment: alignment,
+            child: Text(text, style: calendarStyle.rangeEndTextStyle),
+          ),
         ],
       );
     } else if (isToday && isTodayHighlighted) {
@@ -172,104 +185,115 @@ class CellContent extends StatelessWidget {
       cell = Column(
         children: [
           calendarBuilders.holidayBuilder?.call(context, day, focusedDay) ??
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2),
-                    color: isWeekend ? const Color(0xFF7AC74F) : const Color(0xFF706BEE),
-                  ),
-                  height: 2,
-                ),
+              Container(
+                child: format == CalendarFormat.week
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2),
+                            color: isWeekend ? const Color(0xFF7AC74F) : const Color(0xFF706BEE),
+                          ),
+                          height: 2,
+                        ),
+                      )
+                    : Container(),
               ),
-              AnimatedContainer(
-                duration: duration,
-                margin: margin,
-                padding: padding,
-                decoration: calendarStyle.holidayDecoration,
-                alignment: alignment,
-                child: Text(text, style: calendarStyle.holidayTextStyle),
-              ),
+          AnimatedContainer(
+            duration: duration,
+            margin: margin,
+            padding: padding,
+            decoration: calendarStyle.holidayDecoration,
+            alignment: alignment,
+            child: Text(text, style: calendarStyle.holidayTextStyle),
+          ),
         ],
       );
     } else if (isWithinRange) {
-      cell =
-          Column(
-            children: [
-              calendarBuilders.withinRangeBuilder?.call(context, day, focusedDay) ??
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(2),
-                        color: isWeekend ? const Color(0xFF7AC74F) : const Color(0xFF706BEE),
-                      ),
-                      height: 2,
-                    ),
-                  ),
-                  AnimatedContainer(
-                    duration: duration,
-                    margin: margin,
-                    padding: padding,
-                    decoration: calendarStyle.withinRangeDecoration,
-                    alignment: alignment,
-                    child: Text(text, style: calendarStyle.withinRangeTextStyle),
-                  ),
-            ],
-          );
+      cell = Column(
+        children: [
+          calendarBuilders.withinRangeBuilder?.call(context, day, focusedDay) ??
+              Container(
+                child: format == CalendarFormat.week
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2),
+                            color: isWeekend ? const Color(0xFF7AC74F) : const Color(0xFF706BEE),
+                          ),
+                          height: 2,
+                        ),
+                      )
+                    : Container(),
+              ),
+          AnimatedContainer(
+            duration: duration,
+            margin: margin,
+            padding: padding,
+            decoration: calendarStyle.withinRangeDecoration,
+            alignment: alignment,
+            child: Text(text, style: calendarStyle.withinRangeTextStyle),
+          ),
+        ],
+      );
     } else if (isOutside) {
       cell = Column(
         children: [
           calendarBuilders.outsideBuilder?.call(context, day, focusedDay) ??
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2),
-                    color: isWeekend ? const Color(0xFF7AC74F) : const Color(0xFF706BEE),
-                  ),
-                  height: 2,
-                ),
+              Container(
+                child: format == CalendarFormat.week
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2),
+                            color: isWeekend ? const Color(0xFF7AC74F) : const Color(0xFF706BEE),
+                          ),
+                          height: 2,
+                        ),
+                      )
+                    : Container(),
               ),
-              AnimatedContainer(
-                duration: duration,
-                margin: margin,
-                padding: padding,
-                decoration: calendarStyle.outsideDecoration,
-                alignment: alignment,
-                child: Text(text, style: calendarStyle.outsideTextStyle),
-              ),
+          AnimatedContainer(
+            duration: duration,
+            margin: margin,
+            padding: padding,
+            decoration: calendarStyle.outsideDecoration,
+            alignment: alignment,
+            child: Text(text, style: calendarStyle.outsideTextStyle),
+          ),
         ],
       );
     } else {
       cell = Column(
         children: [
           calendarBuilders.defaultBuilder?.call(context, day, focusedDay) ??
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2),
-                    color: isWeekend ? const Color(0xFF7AC74F) : const Color(0xFF706BEE),
-                  ),
-                  height: 2,
-                ),
+              Container(
+                child: format == CalendarFormat.week
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2),
+                            color: isWeekend ? const Color(0xFF7AC74F) : const Color(0xFF706BEE),
+                          ),
+                          height: 2,
+                        ),
+                      )
+                    : Container(),
               ),
-              AnimatedContainer(
-                duration: duration,
-                margin: margin,
-                padding: padding,
-                decoration: isWeekend
-                    ? calendarStyle.weekendDecoration
-                    : calendarStyle.defaultDecoration,
-                alignment: alignment,
-                child: Text(
-                  text,
-                  style: isWeekend
-                      ? calendarStyle.weekendTextStyle
-                      : calendarStyle.defaultTextStyle,
-                ),
-              ),
+          AnimatedContainer(
+            duration: duration,
+            margin: margin,
+            padding: padding,
+            decoration: isWeekend ? calendarStyle.weekendDecoration : calendarStyle.defaultDecoration,
+            alignment: alignment,
+            child: Text(
+              text,
+              style: isWeekend ? calendarStyle.weekendTextStyle : calendarStyle.defaultTextStyle,
+            ),
+          ),
         ],
       );
     }

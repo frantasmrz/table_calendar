@@ -597,6 +597,7 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
         Widget content = CellContent(
           key: ValueKey('CellContent-${day.year}-${day.month}-${day.day}'),
           day: day,
+          format: widget.calendarFormat,
           focusedDay: focusedDay,
           calendarStyle: widget.calendarStyle,
           calendarBuilders: widget.calendarBuilders,
