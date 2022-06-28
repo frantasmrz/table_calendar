@@ -65,8 +65,8 @@ class CellContent extends StatelessWidget {
     }
 
     final text = '${day.day}';
-    final margin = format == CalendarFormat.week ? calendarStyle.cellMargin : EdgeInsets.all(6.0);
-    final padding = calendarStyle.cellPadding;
+    final margin = calendarStyle.cellMargin;
+    final padding = format == CalendarFormat.week ? calendarStyle.cellPadding : EdgeInsets.only(top: 13.0, bottom: 4.0, left: 4.0, right: 4.0);
     final alignment = calendarStyle.cellAlignment;
     final duration = const Duration(milliseconds: 250);
 
@@ -103,7 +103,7 @@ class CellContent extends StatelessWidget {
           AnimatedContainer(
             duration: duration,
             margin: margin,
-            padding: padding,
+            padding: calendarStyle.cellPadding,
             decoration: calendarStyle.selectedDecoration,
             alignment: alignment,
             child: Text(text, style: calendarStyle.selectedTextStyle),
