@@ -77,7 +77,7 @@ class CellContent extends StatelessWidget {
               Container(
                 child: format == CalendarFormat.week
                     ? Padding(
-                        padding: const EdgeInsets.only(top: 6.0, bottom: 5.0, left: 16.0, right: 16.0),
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(2),
@@ -100,14 +100,17 @@ class CellContent extends StatelessWidget {
       );
     } else if (isSelected) {
       cell = calendarBuilders.selectedBuilder?.call(context, day, focusedDay) ??
-          AnimatedContainer(
-            duration: duration,
-            margin: margin,
-            padding: calendarStyle.cellPadding,
-            decoration: calendarStyle.selectedDecoration,
-            alignment: alignment,
-            child: Text(text, style: calendarStyle.selectedTextStyle),
-          );
+          Padding(
+            padding: EdgeInsets.all(5.0),
+            child: AnimatedContainer(
+              duration: duration,
+              margin: margin,
+              padding: calendarStyle.cellPadding,
+              decoration: calendarStyle.selectedDecoration,
+              alignment: alignment,
+              child: Text(text, style: calendarStyle.selectedTextStyle),
+            ),
+      );
     } else if (isRangeStart) {
       cell = Column(
         children: [
@@ -115,7 +118,7 @@ class CellContent extends StatelessWidget {
               Container(
                 child: format == CalendarFormat.week
                     ? Padding(
-                        padding: const EdgeInsets.only(top: 6.0, bottom: 5.0, left: 16.0, right: 16.0),
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(2),
@@ -143,7 +146,7 @@ class CellContent extends StatelessWidget {
               Container(
                 child: format == CalendarFormat.week
                     ? Padding(
-                        padding: const EdgeInsets.only(top: 6.0, bottom: 5.0, left: 16.0, right: 16.0),
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(2),
@@ -188,7 +191,7 @@ class CellContent extends StatelessWidget {
               Container(
                 child: format == CalendarFormat.week
                     ? Padding(
-                        padding: const EdgeInsets.only(top: 6.0, bottom: 5.0, left: 16.0, right: 16.0),
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(2),
@@ -216,7 +219,7 @@ class CellContent extends StatelessWidget {
               Container(
                 child: format == CalendarFormat.week
                     ? Padding(
-                        padding: const EdgeInsets.only(top: 6.0, bottom: 5.0, left: 16.0, right: 16.0),
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(2),
@@ -244,7 +247,7 @@ class CellContent extends StatelessWidget {
               Container(
                 child: format == CalendarFormat.week
                     ? Padding(
-                        padding: const EdgeInsets.only(top: 6.0, bottom: 5.0, left: 16.0, right: 16.0),
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(2),
@@ -272,7 +275,7 @@ class CellContent extends StatelessWidget {
               Container(
                 child: format == CalendarFormat.week
                     ? Padding(
-                        padding: const EdgeInsets.only(top: 6.0, bottom: 5.0, left: 16.0, right: 16.0),
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 5.0, left: 16.0, right: 16.0),
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(2),
