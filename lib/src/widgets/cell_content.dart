@@ -101,7 +101,7 @@ class CellContent extends StatelessWidget {
     } else if (isSelected) {
       cell = calendarBuilders.selectedBuilder?.call(context, day, focusedDay) ??
           Padding(
-            padding: EdgeInsets.all(5.0),
+            padding: format == CalendarFormat.week ? EdgeInsets.all(5.0) : EdgeInsets.all(0.0),
             child: AnimatedContainer(
               duration: duration,
               margin: margin,
